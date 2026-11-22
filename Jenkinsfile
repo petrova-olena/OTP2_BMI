@@ -2,26 +2,26 @@ pipeline {
     agent any
 
     tools {
-        maven 'Maven3'   // Must match the name configured in Jenkins Global Tool Configuration
+        maven 'Maven_config'   // Must match the name configured in Jenkins Global Tool Configuration
     }
 
     environment {
         // these are the environment variables (Amir's machine) that will be used in the pipeline
        PATH = "C:\\Program Files\\Docker\\Docker\\resources\\bin;${env.PATH}"
-       JAVA_HOME = 'C:\\Program Files\\Java\\jdk-21'  // Adjust to your actual JDK path
+       JAVA_HOME = 'C:\\Program Files\\Java\\jdk-21.0.12.1'  // Adjust to your actual JDK path
 
 
-        SONARQUBE_SERVER = 'XXXXX'
-        SONAR_TOKEN = credentials('XXXXX') //make sure a right token is selected
-        DOCKERHUB_CREDENTIALS_ID = 'XXXX'
-        DOCKERHUB_REPO = 'XXXX/bmi_3013_OMANIMI'
+        SONARQUBE_SERVER = 'SonarQube'
+        SONAR_TOKEN = credentials('sonarqube_token') //make sure a right token is selected
+        DOCKERHUB_CREDENTIALS_ID = 'Docker_username_password'
+        DOCKERHUB_REPO = 'olenape/bmi_3013_olena'
         DOCKER_IMAGE_TAG = 'latest'
     }
 
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'master', url: 'YOUR own project github repo'
+                git branch: 'master', url: 'https://github.com/petrova-olena/OTP2_BMI'
             }
         }
 
@@ -42,9 +42,9 @@ pipeline {
                 withSonarQubeEnv("${env.SONARQUBE_SERVER}") {
                     bat """
                         sonar-scanner ^
-                        -Dsonar.projectKey=BMI_CL ^
+                        -Dsonar.projectKey=OTP2_BMI ^
                         -Dsonar.sources=src ^
-                        -Dsonar.projectName=BMI_CL ^
+                        -Dsonar.projectName=OTP2_BMI ^
                         -Dsonar.host.url=http://localhost:9000 ^
                         -Dsonar.login=${env.SONAR_TOKEN} ^
                         -Dsonar.java.binaries=target/classes
