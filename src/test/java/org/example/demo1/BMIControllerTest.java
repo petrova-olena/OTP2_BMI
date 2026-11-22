@@ -16,6 +16,10 @@ import static org.junit.jupiter.api.Assertions.*;
 import javafx.embed.swing.JFXPanel;
 import org.junit.jupiter.api.BeforeAll;
 
+/**
+ * Runs locally and increases JaCoCo coverage.
+ * Excluded from Jenkins because JavaFX UI tests require DISPLAY/X11.
+ */
 class BMIControllerTest {
     @BeforeAll
     static void initJavaFx() {
