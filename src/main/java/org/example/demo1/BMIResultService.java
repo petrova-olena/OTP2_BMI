@@ -4,8 +4,11 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.logging.Logger;
 
 public class BMIResultService {
+    private static final Logger LOGGER =
+            Logger.getLogger(BMIResultService.class.getName());
 
     // Environment variables with Docker-friendly defaults
     private static final String DB_HOST =
@@ -32,8 +35,8 @@ public class BMIResultService {
             // Ensure MySQL driver loads properly
             Class.forName("com.mysql.cj.jdbc.Driver");
         } catch (ClassNotFoundException e) {
-            System.err.println("❌ MySQL JDBC Driver not found.");
-            e.printStackTrace();
+            LOGGER.severe("❌ MySQL JDBC Driver not found.");
+            LOGGER.severe(e.getMessage());
         }
     }
 
@@ -41,7 +44,7 @@ public class BMIResultService {
 
         String query = "INSERT INTO bmi_results (weight, height, bmi, language) VALUES (?, ?, ?, ?)";
 
-        System.out.println("🔎 Attempting DB connection to: " + DB_URL);
+        LOGGER.warning("🔎 Attempting DB connection to: " + DB_URL);
 
         try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
              PreparedStatement stmt = conn.prepareStatement(query)) {
@@ -53,13 +56,13 @@ public class BMIResultService {
 
             stmt.executeUpdate();
 
-            System.out.println("✅ BMI result saved successfully.");
+            LOGGER.warning("✅ BMI result saved successfully.");
 
         } catch (SQLException e) {
-            System.err.println("❌ Database connection failed.");
-            System.err.println("URL: " + DB_URL);
-            System.err.println("User: " + DB_USER);
-            e.printStackTrace();
+            LOGGER.severe("❌ Database connection failed.");
+            LOGGER.severe("URL: " + DB_URL);
+            LOGGER.severe("User: " + DB_USER);
+            LOGGER.severe(e.getMessage());
         }
     }
 }
