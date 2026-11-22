@@ -32,4 +32,45 @@ class LocalizationServiceTest {
 
         assertNotNull(strings);
     }
+
+    @Test
+    void shouldReturnMapForPersianLocale() {
+        Map<String, String> strings =
+                LocalizationService.getLocalizedStrings(new Locale("fa", "IR"));
+
+        assertNotNull(strings);
+    }
+
+    @Test
+    void shouldReturnMapForVietnameseLocale() {
+        Map<String, String> strings =
+                LocalizationService.getLocalizedStrings(new Locale("vi", "VI"));
+
+        assertNotNull(strings);
+    }
+
+    @Test
+    void shouldReturnNonNullMapForUnknownLocale() {
+        Map<String, String> strings =
+                LocalizationService.getLocalizedStrings(
+                        new Locale("xx", "XX"));
+
+        assertNotNull(strings);
+    }
+
+    @Test
+    void shouldReturnMapForEmptyLocale() {
+        Map<String, String> strings =
+                LocalizationService.getLocalizedStrings(
+                        new Locale("", ""));
+
+        assertNotNull(strings);
+    }
+
+    @Test
+    void shouldCreateLocalizationServiceInstance() {
+        LocalizationService service = new LocalizationService();
+
+        assertNotNull(service);
+    }
 }

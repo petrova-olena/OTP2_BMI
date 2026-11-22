@@ -8,7 +8,7 @@ import java.util.logging.Logger;
 
 public class LocalizationService {
     private static final Logger LOGGER =
-            Logger.getLogger(BMIResultService.class.getName());
+            Logger.getLogger(LocalizationService.class.getName());
 
     private static final String DB_NAME = "bmi_localization";
     private static final String DB_USER = "root";
@@ -29,7 +29,7 @@ public class LocalizationService {
 
     // Build DB connection URL dynamically
     private static String getDatabaseUrl() {
-        return "jdbc:mysql://" + getDatabaseHost() + ":3306/" + DB_NAME + "?useSSL=false&allowPublicKeyRetrieval=true";
+        return "jdbc:mariadb://" + getDatabaseHost() + ":3306/" + DB_NAME;
     }
 
     public static Map<String, String> getLocalizedStrings(Locale locale) {

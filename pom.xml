@@ -63,9 +63,9 @@
 
         <!-- MySQL Connector -->
         <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <version>8.0.33</version>
+            <groupId>org.mariadb.jdbc</groupId>
+            <artifactId>mariadb-java-client</artifactId>
+            <version>3.5.3</version>
         </dependency>
 
         <dependency>
@@ -112,9 +112,6 @@
                 <configuration>
                     <reportsDirectory>${project.build.directory}/surefire-reports</reportsDirectory>
                     <useModulePath>false</useModulePath>
-                    <excludes>
-                        <exclude>**/BMIControllerTest.java</exclude>
-                    </excludes>
                 </configuration>
             </plugin>
 
